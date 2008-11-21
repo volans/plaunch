@@ -1,0 +1,9 @@
+Shortcut,Discription,Command
+bash,终端,gnome-terminal
+gedit,记事本,gedit
+home,家目录,gnome-open ~
+root,根目录,gnome-open /
+cal,计算器,gcalctool
+firefox,火狐浏览器,firefox
+gvim,GVIM编辑器,gvim
+svn,Unix连接,xvncviewer 165.114.88.26:13
