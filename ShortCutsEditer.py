@@ -102,7 +102,7 @@ class ShortCutsEditer:
     def on_new_clicked(self, widget):
         self.list.set(self.list.append(),
                  COLUMN_SHORTCUT, "shortcut",
-                 COLUMN_DISCRIPTION, "discription",
+                 COLUMN_DISCRIPTION, "description",
                  COLUMN_COMMAND, "command",
                  COLUMN_EDITABLE, True
                  )
