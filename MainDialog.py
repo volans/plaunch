@@ -49,8 +49,8 @@ class MainDialog:
         self.tv = self.__create_treeview()
         self.__update_tree()
 
-        #self.win.show_all()
-        #self.win.present()
+#        self.win.show_all()
+#        self.win.present()
 
     def __create_list(self):
         list = gtk.ListStore(gobject.TYPE_UINT,
@@ -129,11 +129,13 @@ class MainDialog:
         self.__update_tree()
 
     def on_close_main(self, widget, data=None):
-        self.win.hide_all()
+#        self.win.hide_all()
+        self.win.hide()
         return True
 
     def open_main(self):
-        self.win.show_all()
+#        self.win.show_all()
+        self.win.deiconify()
         self.win.present()
         #return True
 

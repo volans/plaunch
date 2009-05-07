@@ -36,13 +36,12 @@ def main_linux():
     from HotKey_Linux import KeyHook
     gobject.threads_init()
     statusicon = PLaunchStatusIcon()
-    hotkey = KeyHook(statusicon.maindialog.open_main)
+    hotkey = KeyHook(statusicon.maindialog.open_main)   
     thread.start_new_thread(hotkey.start, ())
     try:
         gtk.main()
     except KeyboardInterrupt:
         print 'User Cancled.'
-    hotkey.exit = True
     hotkey.stop()
 
 def main_windows():
