@@ -50,8 +50,8 @@ class ShortCutsLoader:
             line = line.split(',')
             self.shortcutmatch[i] = line[0]
             i += 1
-            if i > 9:
-                break
+            #if i > 9:
+            #    break
         self.shortcuttop10 = self.shortcutmatch
 
     def flush_input(self, input):

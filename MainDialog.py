@@ -25,12 +25,13 @@ import gtk.glade as glade
 import gobject
 import sys
 import subprocess
-
 from ShortCutsLoader import ShortCutsLoader
 
 GLADE = sys.path[0] + '/data/PLaunch.glade'
 SHORTCUTS_CONF = sys.path[0] + '/data/ShortCutList.txt'
 (COLUMN_NUM, COLUMN_SHORTCUT, COLUMN_DISCRIPTION) = range(3)
+
+reload_scm = True
 
 class MainDialog:
     '''MainDialog for user input, show shortcuts...
@@ -44,13 +45,17 @@ class MainDialog:
         self.win.connect("delete_event", self.on_close_main)
         self.win.set_keep_above(True)
 
-        self.scm = ShortCutsLoader(file(SHORTCUTS_CONF).readlines()[1:])
+        self.__load_scm()
+
         self.list = self.__create_list() 
         self.tv = self.__create_treeview()
         self.__update_tree()
 
-#        self.win.show_all()
-#        self.win.present()
+    def __load_scm(self): 
+        global reload_scm
+        if reload_scm == True:
+            self.scm = ShortCutsLoader(file(SHORTCUTS_CONF).readlines()[1:])
+        reload_scm = False
 
     def __create_list(self):
         list = gtk.ListStore(gobject.TYPE_UINT,
@@ -88,6 +93,9 @@ class MainDialog:
     def __update_tree(self):
         '''Updated tree view of shortcuts after user input modification.
         ''' 
+
+        self.__load_scm()
+
         self.list.clear()
         for key, cmd in self.scm.shortcutmatch.items():
             self.list.set(self.list.append(),
@@ -104,6 +112,7 @@ class MainDialog:
         '''Get command from command pool.
         Create a new process to run this command.
         '''
+        self.__load_scm()
         command = self.scm.shortcutspool[self.scm.shortcutmatch[column_number[0]]][0]
         subprocess.Popen(command, shell=True)
 
@@ -129,15 +138,15 @@ class MainDialog:
         self.__update_tree()
 
     def on_close_main(self, widget, data=None):
-#        self.win.hide_all()
         self.win.hide()
         return True
 
-    def open_main(self):
-#        self.win.show_all()
-        self.win.deiconify()
-        self.win.present()
-        #return True
+    def open_main(self, time=0):
+        self.__update_tree()
+        evttime = time if time else gtk.get_current_event_time()
+        self.win.stick()
+        self.win.present_with_time(time)
+        self.win.window.focus(timestamp=evttime)
 
 if __name__ == '__main__':
     class Test(MainDialog):

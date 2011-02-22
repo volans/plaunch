@@ -140,6 +140,8 @@ class ShortCutsEditer:
         fhandle.close()
 
         self.on_cancel_clicked(None)
+        import MainDialog
+        MainDialog.reload_scm = True
 
     def on_cancel_clicked(self, widget):
         self.win.destroy()

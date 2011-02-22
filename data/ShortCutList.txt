@@ -6,3 +6,9 @@ root,根目录,gnome-open /
 cal,计算器,gcalctool
 firefox,火狐浏览器,firefox
 gvim,GVIM编辑器,gvim
+xxx,dd,gnome-terminal
+shortcut,description,command
+shortcut,description,command
+shortcut,description,command
+shortcut,description,command
+shortcut,description,command

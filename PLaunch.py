@@ -24,9 +24,9 @@ import gobject
 import thread
 import sys
 
-PROCESS = 'PLaunch'
+PROCESS = 'PLaunch' 
 
-def main_linux():
+def plaunch():
     try:
         import dl
         libc = dl.open('/lib/libc.so.6')
@@ -37,23 +37,18 @@ def main_linux():
     gobject.threads_init()
     statusicon = PLaunchStatusIcon()
     hotkey = KeyHook(statusicon.maindialog.open_main)   
-    thread.start_new_thread(hotkey.start, ())
+    #thread.start_new_thread(hotkey.start, ())
+    hotkey.start()
     try:
         gtk.main()
     except KeyboardInterrupt:
         print 'User Cancled.'
     hotkey.stop()
 
-def main_windows():
-    from HotKey_Win import KeyHook
-    statusicon = PLaunchStatusIcon()
-    hotkey = KeyHook(statusicon.maindialog.open_main)
-    gtk.main()
 
 
 if __name__ == '__main__':
-    if sys.platform == 'win32':
-        main = main_windows
-    else:
-        main = main_linux
-    main()
+    if sys.platform != 'linux2':
+		print 'Only support Linux platform'
+		exit()
+    plaunch()
